@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Unzip project
-        run: unzip CounterWidget.zip -d project
+        run: unzip CounterWidgetApp.zip -d project
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -28,12 +28,11 @@ jobs:
           gradle-version: '8.2'
 
       - name: Build debug APK
-        run: |
-          cd project/CounterWidget
-          gradle assembleDebug --no-daemon
+        working-directory: project/CounterWidgetFinal
+        run: gradle assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: CounterWidget-debug
-          path: project/CounterWidget/app/build/outputs/apk/debug/app-debug.apk
+          name: CounterWidgetApp-debug
+          path: project/CounterWidgetFinal/app/build/outputs/apk/debug/app-debug.apk
